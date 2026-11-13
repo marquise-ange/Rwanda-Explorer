@@ -1,10 +1,24 @@
+
+import Navbar from "./Components/Navbar";
+
 function App() {
+
+  const handleNavigate = (section) => {
+    const target = document.getElementById(section);
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-white bg-color-black">
-        Rwanda Explorer
-      </h1>
-    </div>
-  )
+    <>
+      <Navbar onNavigate={handleNavigate} />
+
+    </>
+  );
 }
+
 export default App;
