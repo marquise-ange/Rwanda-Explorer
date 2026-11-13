@@ -6,6 +6,7 @@ import Hero from "./Components/Hero"
 import About from "./Components/About"
 import Opportunities from "./Components/Opportunities"
 import AddOpportunity from "./Components/OpportunityForm"
+import Footer from "./Components/Footer"
 
 import initialOpportunities from "./data/Dataopportunities"
 
@@ -34,7 +35,7 @@ function App() {
 
         setOpportunities(initialOpportunities)
       } catch (err) {
-        setError(err.message)
+        setError(err.message || "Something went wrong.")
       } finally {
         setIsLoading(false)
       }
@@ -72,19 +73,26 @@ function App() {
     if (target) {
       target.scrollIntoView({
         behavior: "smooth",
+        block: "start",
       })
     }
   }
 
   return (
     <div className="min-h-screen bg-[#F3F5F7]">
+
+      {/* Navigation */}
       <Navbar onNavigate={handleNavigate} />
 
+      {/* Main Content */}
       <main>
+        {/* Hero Section */}
         <Hero onNavigate={handleNavigate} />
 
+        {/* About Section */}
         <About onNavigate={handleNavigate} />
 
+        {/* Opportunities Section */}
         {isLoading ? (
           <section
             id="opportunities"
@@ -92,7 +100,12 @@ function App() {
             aria-live="polite"
           >
             <div className="mx-auto max-w-xl">
-              <div className="mx-auto mb-5 h-10 w-10 animate-spin rounded-full border-4 border-[#D5DDE5] border-t-[#52677D]" />
+
+              <div
+                className="mx-auto mb-5 h-10 w-10 animate-spin rounded-full border-4 border-[#D5DDE5] border-t-[#52677D]"
+                role="status"
+                aria-label="Loading"
+              />
 
               <h2 className="text-xl font-semibold text-[#52677D]">
                 Loading opportunities...
@@ -101,6 +114,7 @@ function App() {
               <p className="mt-2 text-sm text-[#788797]">
                 Please wait while we prepare opportunities for you.
               </p>
+
             </div>
           </section>
         ) : error ? (
@@ -110,7 +124,11 @@ function App() {
             aria-live="assertive"
           >
             <div className="mx-auto max-w-xl rounded-xl border border-red-200 bg-white p-8 shadow-sm">
-              <div className="mb-4 text-4xl" aria-hidden="true">
+
+              <div
+                className="mb-4 text-4xl font-bold text-red-500"
+                aria-hidden="true"
+              >
                 !
               </div>
 
@@ -129,6 +147,7 @@ function App() {
               >
                 Try Again
               </button>
+
             </div>
           </section>
         ) : (
@@ -139,10 +158,15 @@ function App() {
           />
         )}
 
+        {/* Add Opportunity Section */}
         <AddOpportunity
           onAddOpportunity={handleAddOpportunity}
         />
       </main>
+
+      {/* Footer */}
+      <Footer onNavigate={handleNavigate} />
+
     </div>
   )
 }
