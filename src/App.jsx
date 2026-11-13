@@ -1,6 +1,8 @@
 
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
+import About from "./Components/About";
+import Opportunities from "./Components/Opportunities";
 
 function App() {
 
@@ -26,6 +28,9 @@ function App() {
         {/* Hero Section */}
         <Hero onNavigate={handleNavigate} />
 
+        {/*About section */}
+        <About onNavigate={handleNavigate} />
+        <Opportunities />
       </main>
 
     </div>

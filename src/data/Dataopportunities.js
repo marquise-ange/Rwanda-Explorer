@@ -1,4 +1,5 @@
 const opportunities = [{
+    id: 1,
     title: "Frontend Development Workshop",
     category: "Workshop",
     city: "Kigali",
@@ -142,7 +143,7 @@ const opportunities = [{
     description: "Participate in a community initiative promoting health awareness.",
     capacity: 45,
     availableSeats: 25,
-    price: 0,
+    price: "Free",
     featured: false,
 },
 
