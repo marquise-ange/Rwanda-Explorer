@@ -4,19 +4,29 @@ import { useState } from "react"
 function Navbar({ onNavigate }) {
     const [menuOpen, setMenuOpen] = useState(false)
 
+    const navigationLinks = [
+        { label: "Home", section: "home" },
+        { label: "About Us", section: "about" },
+        { label: "Opportunities", section: "opportunities" },
+    ]
+
     const handleNavigation = (section) => {
         onNavigate(section)
         setMenuOpen(false)
     }
 
     return (
-        <nav className="sticky top-0 z-50 w-full border-b border-[#E8EBEF] bg-white">
-            <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
+        <nav
+            aria-label="Main navigation"
+            className="sticky top-0 z-50 w-full border-b border-[#E8EBEF] bg-white/95 backdrop-blur-md"
+        >
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-10">
 
                 {/* Logo */}
                 <button
                     type="button"
                     onClick={() => handleNavigation("home")}
+                    aria-label="IMBERE - Go to homepage"
                     className="shrink-0"
                 >
                     <span className="text-2xl font-bold tracking-[0.08em] text-[#52677D]">
@@ -26,57 +36,39 @@ function Navbar({ onNavigate }) {
 
                 {/* Desktop Navigation */}
                 <div className="hidden items-center gap-8 md:flex">
+                    {navigationLinks.map((link) => (
+                        <button
+                            key={link.section}
+                            type="button"
+                            onClick={() => handleNavigation(link.section)}
+                            className="border-b-2 border-transparent pb-1 text-sm font-medium text-[#788797] transition-all duration-200 hover:border-[#BBA47E] hover:text-[#52677D]"
+                        >
+                            {link.label}
+                        </button>
+                    ))}
 
-                    <button
-                        type="button"
-                        onClick={() => handleNavigation("home")}
-                        className="border-b-2 border-[#52677D] pb-1 text-sm font-semibold text-[#52677D]"
-                    >
-                        Home
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() => handleNavigation("about")}
-                        className="pb-1 text-sm font-medium text-[#788797] transition-colors hover:text-[#52677D]"
-                    >
-                        About Us
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() => handleNavigation("opportunities")}
-                        className="pb-1 text-sm font-medium text-[#788797] transition-colors hover:text-[#52677D]"
-                    >
-                        Opportunities
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() => handleNavigation("saved")}
-                        className="pb-1 text-sm font-medium text-[#788797] transition-colors hover:text-[#52677D]"
-                    >
-                        Saved
-                    </button>
-
+                    {/* Add Opportunity */}
                     <button
                         type="button"
                         onClick={() => handleNavigation("add")}
-                        className="rounded-md border border-[#52677D] px-5 py-2.5 text-sm font-semibold text-[#52677D] transition-all duration-200 hover:bg-[#52677D] hover:text-white"
+                        className="rounded-md bg-[#52677D] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#405469] hover:shadow-md"
                     >
                         + Add Opportunity
                     </button>
-
                 </div>
 
-                {/* Mobile Hamburger Button */}
+                {/* Mobile Menu Button */}
                 <button
                     type="button"
-                    onClick={() => setMenuOpen(!menuOpen)}
-                    aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+                    onClick={() => setMenuOpen((previous) => !previous)}
+                    aria-label={
+                        menuOpen
+                            ? "Close navigation menu"
+                            : "Open navigation menu"
+                    }
                     aria-expanded={menuOpen}
                     aria-controls="mobile-navigation"
-                    className="flex h-10 w-10 items-center justify-center rounded-md text-[#52677D] transition-colors hover:bg-[#F3F5F7] md:hidden"
+                    className="flex h-10 w-10 items-center justify-center rounded-md text-[#52677D] transition-colors hover:bg-[#F3F5F7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#52677D] md:hidden"
                 >
                     {menuOpen ? (
                         <svg
@@ -84,6 +76,7 @@ function Navbar({ onNavigate }) {
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
+                            aria-hidden="true"
                         >
                             <path
                                 strokeLinecap="round"
@@ -98,6 +91,7 @@ function Navbar({ onNavigate }) {
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
+                            aria-hidden="true"
                         >
                             <path
                                 strokeLinecap="round"
@@ -108,57 +102,35 @@ function Navbar({ onNavigate }) {
                         </svg>
                     )}
                 </button>
-
             </div>
 
-            {/* Mobile Navigation Menu */}
+            {/* Mobile Navigation */}
             {menuOpen && (
                 <div
                     id="mobile-navigation"
-                    className="border-t border-[#E8EBEF] bg-white px-6 py-5 shadow-sm md:hidden"
+                    className="border-t border-[#E8EBEF] bg-white px-6 py-6 shadow-md md:hidden"
                 >
                     <div className="flex flex-col gap-5">
-
-                        <button
-                            type="button"
-                            onClick={() => handleNavigation("home")}
-                            className="text-left text-sm font-semibold text-[#52677D]"
-                        >
-                            Home
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() => handleNavigation("about")}
-                            className="text-left text-sm font-medium text-[#788797] hover:text-[#52677D]"
-                        >
-                            About Us
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() => handleNavigation("opportunities")}
-                            className="text-left text-sm font-medium text-[#788797] hover:text-[#52677D]"
-                        >
-                            Opportunities
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() => handleNavigation("saved")}
-                            className="text-left text-sm font-medium text-[#788797] hover:text-[#52677D]"
-                        >
-                            Saved
-                        </button>
+                        {navigationLinks.map((link) => (
+                            <button
+                                key={link.section}
+                                type="button"
+                                onClick={() =>
+                                    handleNavigation(link.section)
+                                }
+                                className="text-left text-sm font-medium text-[#788797] transition-colors duration-200 hover:text-[#52677D]"
+                            >
+                                {link.label}
+                            </button>
+                        ))}
 
                         <button
                             type="button"
                             onClick={() => handleNavigation("add")}
-                            className="w-full rounded-md bg-[#52677D] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#405469]"
+                            className="mt-2 w-full rounded-md bg-[#52677D] px-5 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#405469]"
                         >
                             + Add Opportunity
                         </button>
-
                     </div>
                 </div>
             )}
